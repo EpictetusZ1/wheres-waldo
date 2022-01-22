@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const MainStyles = styled.div`
+export const Main = styled.div`
   height: 100vh;
   width: 100vw;
   background-color: goldenrod;
