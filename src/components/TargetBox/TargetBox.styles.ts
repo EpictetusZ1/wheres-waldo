@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {ITargetBoxStyledProps} from "../../types/Main.types";
+import {IListStyledProps, ITargetBoxStyledProps} from "../../types/Main.types";
 import arrow from "../../assets/arrow.png";
 
 export const TargetBox = styled.div`
@@ -43,20 +43,22 @@ export const Dropdown = styled.div`
     padding: 0;
   }
 
-  li {
-    width: 100%;
-    color: #FFF;
-    font-size: 1.5em;
-    letter-spacing: 1px;
-    padding: 10px 0;
-    cursor: pointer;
+`
 
-    :hover {
-      font-size: 1.7em;
-      background-color: rgba(178, 176, 176, 0.29);
-    }
+export const LiStyled = styled.li`
+  width: 100%;
+  color: #FFF;
+  font-size: 1.5em;
+  letter-spacing: 1px;
+  padding: 10px 0;
+  cursor: pointer;
+  text-decoration: ${ (props: IListStyledProps) =>  props.found ? "line-through" : "none"};
 
-    transition: all 0.2s cubic-bezier(0.35, 0.95, 0.72, 0.81);
+
+  :hover {
+    font-size: 1.7em;
+    background-color: rgba(178, 176, 176, 0.29);
   }
 
+  transition: all 0.2s cubic-bezier(0.35, 0.95, 0.72, 0.81);
 `
