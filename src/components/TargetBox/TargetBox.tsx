@@ -1,9 +1,9 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import * as S from "./TargetBox.styles"
 import {IMousePos, IPerson, ITargetBoxProps} from "../../types/Main.types";
 import { PhotoContext } from "../../App";
 
-const TargetBox: React.FC<ITargetBoxProps> = ( { boundedCords} ) => {
+const TargetBox: React.FC<ITargetBoxProps> = ( { boundedCords, tryAgain} ) => {
 
     const  {photos, dispatch} = useContext(PhotoContext)
 
@@ -26,8 +26,6 @@ const TargetBox: React.FC<ITargetBoxProps> = ( { boundedCords} ) => {
                     if (trueCoords.xPos >= xRange[0] && trueCoords.xPos <= xRange[1]) {
                         if (trueCoords.yPos >= yRange[0] && trueCoords.yPos <= yRange[1]) {
                             const copyPeople = photos
-                            console.log(copyPeople)
-
                             copyPeople.characters[i].found = !copyPeople.characters[i].found
 
                             const updatePerson = {
@@ -39,6 +37,10 @@ const TargetBox: React.FC<ITargetBoxProps> = ( { boundedCords} ) => {
                     }
                     else {
                         console.log("you did not find waldo")
+                        tryAgain(true)
+                        setTimeout(() => {
+                            tryAgain(false)
+                        }, 3000)
                     }
                 }
                 checkTrue()
@@ -61,6 +63,7 @@ const TargetBox: React.FC<ITargetBoxProps> = ( { boundedCords} ) => {
         <S.TargetBox coords={boundedCords} >
             <div className={"reticle"}/>
             { dropMenu()}
+
         </S.TargetBox>
     )
 };

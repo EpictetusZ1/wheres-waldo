@@ -1,3 +1,4 @@
+import React from "react";
 
 export interface IMousePos {
     xPos: number
@@ -6,6 +7,7 @@ export interface IMousePos {
 
 export interface ITargetBoxProps {
     boundedCords: IMousePos
+    tryAgain: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export interface ITargetBoxStyledProps {

@@ -2,7 +2,6 @@ import React, {useEffect, useReducer, useState} from 'react';
 import {initializeApp} from 'firebase/app';
 import {doc, getDoc, getFirestore} from "firebase/firestore"
 import Main from "./components/Main/Main";
-import Header from "./components/Header/Header";
 
 export const PhotoContext = React.createContext<any>(undefined)
 
@@ -46,15 +45,12 @@ const App: React.FC = () => {
   const [photos, dispatch] = useReducer(reducer, undefined)
 
   useEffect(() => {
-    _getPhotoCollection().then( () => {
-      setDoneLoading(true)
-    })
+      _getPhotoCollection().then( () => setDoneLoading(true))
   },[])
 
   return (
       <div className="App">
         <PhotoContext.Provider value={{ photos, dispatch}}>
-          <Header />
           {doneLoading && <Main />}
         </PhotoContext.Provider>
       </div>
