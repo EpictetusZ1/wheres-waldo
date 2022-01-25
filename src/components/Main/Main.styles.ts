@@ -2,15 +2,18 @@ import styled from "styled-components";
 import {ITargetBoxStyledProps} from "../../types/Main.types";
 
 export const Main = styled.div`
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   width: 100vw;
   background-color: goldenrod;
+  position: relative;
+  
   img {
     width: 1000px;
     height: auto;
   }
-`
 
+`
 
 export const FoundBox = styled.div`
   position: absolute;

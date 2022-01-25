@@ -1,6 +1,5 @@
-import React, {useContext, useState} from 'react';
-import {IMousePos, IPerson,} from "../../types/Main.types";
-
+import React, {useContext, useRef, useState} from 'react';
+import {IMousePos, IPerson} from "../../types/Main.types";
 import * as S from "./Main.styles"
 import waldoPic from "../../assets/waldo1.jpeg"
 import TargetBox from "../TargetBox/TargetBox";
@@ -9,29 +8,33 @@ import {PhotoContext} from "../../App";
 const Main = () => {
     const {photos} = useContext(PhotoContext)
 
-    const [mousePos, setMousePos] = useState<IMousePos>({xPos: 0, yPos: 0})
+    const [boundPos, setBoundPos] = useState<IMousePos>({xPos: 0, yPos: 0}) // Eval if click 'found' waldo
     const [showTarget, setShowTarget] = useState<boolean>(false)
+    const mouseRef = useRef<HTMLImageElement>(null)
 
     const getCoords = (e: React.MouseEvent) => {
-        let target = e.nativeEvent
-        let x =  target.offsetX
-        let y = target.offsetY
+        if (mouseRef && mouseRef.current) {
+            const boundRect = mouseRef.current.getBoundingClientRect()
+            const target = e.nativeEvent
 
-        setShowTarget(true)
-        setMousePos({ xPos: x, yPos: y})
+            const x =  target.clientX - boundRect.left
+            const y = target.clientY - boundRect.top
+
+            setShowTarget(true)
+            setBoundPos({ xPos: x, yPos: y})
+        }
     }
 
-
-    const checkPeopleForFound = () => {
-        let foundPeeps = []
+    const ShowFound: React.FC = () => {
+        let foundPeople = []
         for (let i = 0; i < photos.characters.length; i++) {
             if (photos.characters[i].found) {
-                foundPeeps.push(photos.characters[i])
+                foundPeople.push(photos.characters[i])
             }
         }
         return (
             <div>
-                {foundPeeps.map((person: IPerson) => {
+                {foundPeople.map((person: IPerson) => {
                     return (
                         <S.FoundBox coords={person.coords} key={person.name}>
                             <h3>{person.name}</h3>
@@ -45,13 +48,15 @@ const Main = () => {
     return (
         <S.Main>
             <img src={waldoPic} alt="Find waldo"
+                 ref={mouseRef}
                  onClick={e => {
                      getCoords(e)
                  }}
             />
+
             <div onClick={() => setShowTarget(false)}>
-                { showTarget && <TargetBox coords={mousePos} />}
-                {checkPeopleForFound()}
+                { showTarget && <TargetBox boundedCords={boundPos}/>}
+                <ShowFound />
             </div>
 
         </S.Main>

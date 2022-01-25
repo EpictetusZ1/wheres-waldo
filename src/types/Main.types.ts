@@ -5,7 +5,7 @@ export interface IMousePos {
 }
 
 export interface ITargetBoxProps {
-    coords: IMousePos
+    boundedCords: IMousePos
 }
 
 export interface ITargetBoxStyledProps {
@@ -21,4 +21,3 @@ export interface IPerson {
     name: string
     found: boolean
 }
-
