@@ -4,6 +4,7 @@ import {doc, getDoc, getFirestore} from "firebase/firestore"
 import Main from "./components/Main/Main";
 
 export const PhotoContext = React.createContext<any>(undefined)
+export const HighScoreContext = React.createContext<any>(undefined)
 
 const reducer = (state: any, action: any) => {
   switch (action.type) {
@@ -42,7 +43,15 @@ const App: React.FC = () => {
     dispatch(setPhotos)
   }
 
+  const initHigh = {
+    time: 0,
+    name: "guest"
+    // Get user to enter a name to put on their high score
+  }
+
   const [photos, dispatch] = useReducer(reducer, undefined)
+  const [highSCore, dispatchHigh] = useReducer(reducer, undefined)
+
 
   useEffect(() => {
       _getPhotoCollection().then( () => setDoneLoading(true))

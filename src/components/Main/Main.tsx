@@ -5,55 +5,40 @@ import waldoPic from "../../assets/waldo1.jpeg"
 import TargetBox from "../TargetBox/TargetBox";
 import {PhotoContext} from "../../App";
 import Header from "../Header/Header";
+import FoundPersons from "../FoundPersons/FoundPersons";
 
 const Main = () => {
     const {photos} = useContext(PhotoContext)
 
     const [gameOver, setGameOver] = useState(false)
 
-    const [boundPos, setBoundPos] = useState<IMousePos>({xPos: 0, yPos: 0}) // Eval if click 'found' waldo
+    const [mouseCoords, setMouseCoords] = useState<IMousePos>({xPos: 0, yPos: 0}) // Show mouse targetBox
+    const [relativeCoords, setRelativeCoords] = useState<IMousePos>({xPos: 0, yPos: 0}) // Eval if click 'found' waldo
     const [showTarget, setShowTarget] = useState<boolean>(false)
-    const mouseRef = useRef<HTMLImageElement>(null)
+    const imgRef = useRef<HTMLImageElement>(null)
 
     const [showTryAgain, setShowTryAgain] = useState(false)
 
     const getCoords = (e: React.MouseEvent) => {
-        if (mouseRef && mouseRef.current) {
-            const boundRect = mouseRef.current.getBoundingClientRect()
+        if (imgRef && imgRef.current) {
+            const boundRect = imgRef.current.getBoundingClientRect()
             const target = e.nativeEvent
-
             const x =  target.clientX - boundRect.left
             const y = target.clientY - boundRect.top
-            console.log("x: ", x, "y: ", y)
+
+            const relX = Math.round((x / window.innerWidth) * 100)
+            const relY = Math.round((y / window.innerHeight) * 100)
 
             setShowTarget(true)
-            setBoundPos({ xPos: x, yPos: y})
+            setMouseCoords({ xPos: x , yPos: y })
+            setRelativeCoords({xPos: relX, yPos: relY})
+            console.log("x", relX, "y", relY)
         }
-    }
-
-    const ShowFound: React.FC = () => {
-        let foundPeople = []
-        for (let i = 0; i < photos.characters.length; i++) {
-            if (photos.characters[i].found) {
-                foundPeople.push(photos.characters[i])
-            }
-        }
-        return (
-            <div>
-                {foundPeople.map((person: IPerson) => {
-                    return (
-                        <S.FoundBox coords={person.coords} key={person.name}>
-                            <h3>{person.name}</h3>
-                        </S.FoundBox>
-                    )
-                })}
-            </div>
-        )
     }
 
     useEffect(() => {
         const checkGameOver = () => {
-            let isGameOver = photos.characters.every((char: IPerson) => char.found)
+            const isGameOver = photos.characters.every((char: IPerson) => char.found)
             setGameOver(isGameOver)
         }
 
@@ -63,21 +48,20 @@ const Main = () => {
     return (
         <S.Main>
             <Header />
-
             { showTryAgain && <S.TryAgain> No luck, Keep searching!</S.TryAgain> }
-            {gameOver && <h1>GAME OVER</h1>}
+            {gameOver && <h2> Congratulations, You Won! </h2>}
 
-            <img src={waldoPic} alt="Find waldo"
-                 ref={mouseRef}
-                 onClick={e => {
-                     getCoords(e)
-                 }}
-            />
+                <img src={waldoPic} alt="Find waldo"
+                     ref={imgRef}
+                     onClick={e => {
+                         getCoords(e)
+                     }}
+                />
 
             <div onClick={() => setShowTarget(false)}>
-                { showTarget && <TargetBox boundedCords={boundPos} tryAgain={setShowTryAgain} />}
-                <ShowFound />
+                { showTarget && <TargetBox mouseCoords={mouseCoords} relativeCoords={relativeCoords} tryAgain={setShowTryAgain} />}
             </div>
+            <FoundPersons />
         </S.Main>
     );
 };

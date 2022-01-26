@@ -4,7 +4,7 @@ import arrow from "../../assets/arrow.png";
 
 export const TargetBox = styled.div`
   position: absolute;
-  top: ${ (props: ITargetBoxStyledProps) =>  (props.coords.yPos) + "px"};
+  top: ${ (props: ITargetBoxStyledProps) =>  (props.coords.yPos + 15) + "px"};
   left: ${ (props: ITargetBoxStyledProps) =>  (props.coords.xPos - 50) + "px"};
   display: flex;
   flex-direction: row;

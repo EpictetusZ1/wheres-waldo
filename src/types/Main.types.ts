@@ -6,7 +6,8 @@ export interface IMousePos {
 }
 
 export interface ITargetBoxProps {
-    boundedCords: IMousePos
+    mouseCoords: IMousePos
+    relativeCoords: IMousePos
     tryAgain: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -22,4 +23,8 @@ export interface IPerson {
     coords: IMousePos
     name: string
     found: boolean
+}
+
+export interface IFoundPersonsProps {
+
 }
