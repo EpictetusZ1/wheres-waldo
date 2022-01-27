@@ -6,6 +6,7 @@ import TargetBox from "../TargetBox/TargetBox";
 import {PhotoContext} from "../../App";
 import Header from "../Header/Header";
 import FoundPersons from "../FoundPersons/FoundPersons";
+import GameOver from "../GameOver/GameOver";
 
 const Main = () => {
     const {photos} = useContext(PhotoContext)
@@ -32,7 +33,6 @@ const Main = () => {
             setShowTarget(true)
             setMouseCoords({ xPos: x , yPos: y })
             setRelativeCoords({xPos: relX, yPos: relY})
-            console.log("x", relX, "y", relY)
         }
     }
 
@@ -47,9 +47,10 @@ const Main = () => {
 
     return (
         <S.Main>
-            <Header />
+            {!gameOver && <Header />}
+
             { showTryAgain && <S.TryAgain> No luck, Keep searching!</S.TryAgain> }
-            {gameOver && <h2> Congratulations, You Won! </h2>}
+            {gameOver && <GameOver />}
 
                 <img src={waldoPic} alt="Find waldo"
                      ref={imgRef}

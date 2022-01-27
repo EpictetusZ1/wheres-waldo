@@ -1,4 +1,7 @@
 import React from "react";
+import firebase from "firebase/compat";
+import DocumentData = firebase.firestore.DocumentData;
+import Firestore = firebase.firestore.Firestore;
 
 export interface IMousePos {
     xPos: number
@@ -25,6 +28,14 @@ export interface IPerson {
     found: boolean
 }
 
-export interface IFoundPersonsProps {
-
+export interface IScore {
+    time: number
+    name: string
 }
+
+export interface IHighScoreArr {
+    scores?: Array<IScore> | DocumentData
+    myHighScore: IScore
+    dbRef:  Firestore | any
+}
+

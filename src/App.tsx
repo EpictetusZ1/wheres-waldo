@@ -30,6 +30,10 @@ const HSReducer = (state: IHighScoreArr, action: any) => {
           time: finalTime
         }
       }
+    case "changeName":
+      const myScoreClone = {...state}
+        myScoreClone.myHighScore.name = action.data
+          return myScoreClone
   }
 }
 
@@ -71,7 +75,7 @@ const App: React.FC = () => {
     }
 
     let sorted
-    if (result) sorted = result.scoresArr.sort(sorter)
+    if (result) sorted = result.scores.sort(sorter)
 
     const head100 = sorted.slice(0, 100)
 
@@ -80,7 +84,8 @@ const App: React.FC = () => {
       myHighScore: {
         time: 0,
         name: "Name"
-      }
+      },
+      dbRef: firestore
     }
 
     const dispatch = {

@@ -59,6 +59,12 @@ export const FormEl = styled.div`
   padding: 10px 25px;
   font-family: Verdana, sans-serif;
 
+  @media only screen
+  and (min-device-width: 768px) {
+    width: 95%;
+    padding: 10px 0;
+  }
+
   input {
     border: inherit;
     border-radius: 5px;
