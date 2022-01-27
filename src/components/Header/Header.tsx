@@ -1,16 +1,32 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import * as S from "./Header.styles"
+import {HighScoreContext} from "../../App";
+
 
 const Stopwatch: React.FC = () => {
     const [time, setTime] = useState(0)
+    const [computerTime, setComputerTime] = useState(0)
+
+    const {dispatchHighScore} = useContext(HighScoreContext)
+
+    // useEffect(() => {
+    //     console.log(time)
+    //     dispatchHighScore({type: "setTime", data: time})
+    // }, [time])
 
     useEffect(() => {
-        let increment: number | NodeJS.Timer
+        // console.time("Start Timer")
+        const start = window.performance.now()
+        let increment: NodeJS.Timer
         increment = setInterval(() => {
             setTime((prevTime) => prevTime + 10)
         }, 1000)
         return () => {
             clearInterval(increment as NodeJS.Timeout)
+            // console.timeEnd("Start Timer")
+            const end = window.performance.now()
+            dispatchHighScore({type: "setTime", data: (end - start)})
+
         }
     }, [])
     return (
