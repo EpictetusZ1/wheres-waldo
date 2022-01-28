@@ -5,30 +5,22 @@ import {HighScoreContext} from "../../App";
 
 const Stopwatch: React.FC = () => {
     const [time, setTime] = useState(0)
-    const [computerTime, setComputerTime] = useState(0)
 
     const {dispatchHighScore} = useContext(HighScoreContext)
 
-    // useEffect(() => {
-    //     console.log(time)
-    //     dispatchHighScore({type: "setTime", data: time})
-    // }, [time])
-
     useEffect(() => {
-        // console.time("Start Timer")
-        const start = window.performance.now()
-        let increment: NodeJS.Timer
-        increment = setInterval(() => {
+        const start: number = window.performance.now()
+        const increment: NodeJS.Timer = setInterval(() => {
             setTime((prevTime) => prevTime + 10)
         }, 1000)
+
         return () => {
             clearInterval(increment as NodeJS.Timeout)
-            // console.timeEnd("Start Timer")
-            const end = window.performance.now()
+            const end: number = window.performance.now()
             dispatchHighScore({type: "setTime", data: (end - start)})
-
         }
     }, [])
+
     return (
         <div className={"timerContainer"}>
             <p>Current Time: </p>{Math.floor((time / 1000) % 60)}:{("0" + ((time / 10) % 100)).slice(-2)}
@@ -39,7 +31,7 @@ const Stopwatch: React.FC = () => {
 const Header: React.FC = () => {
     return (
         <S.Header>
-            <h1>Where's Waldo?</h1>
+            <h1>Where's Waldo <sup>(Emerson)</sup> ?</h1>
             <Stopwatch />
         </S.Header>
     );

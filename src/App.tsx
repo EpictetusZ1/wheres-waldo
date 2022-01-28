@@ -1,9 +1,15 @@
+// React & Components
 import React, {useEffect, useReducer, useState} from 'react';
+import Main from "./components/Main/Main";
+
+// Firebase
 import {initializeApp} from 'firebase/app';
 import {doc, getDoc, getFirestore } from "firebase/firestore"
-import Main from "./components/Main/Main";
+
+// Types
 import {IHighScoreArr, IScore} from "./types/Main.types";
 
+// Export Context
 export const PhotoContext = React.createContext<any>(undefined)
 export const HighScoreContext = React.createContext<any>(undefined)
 
@@ -38,7 +44,7 @@ const HSReducer = (state: IHighScoreArr, action: any) => {
 }
 
 const App: React.FC = () => {
-  const firebaseConfig = {
+  const firebaseConfig: object = {
     apiKey: "AIzaSyCQj9XDycqPrcCtSaJdB2YudGg1Pffu4PY",
     authDomain: "whereswaldo-d9d9f.firebaseapp.com",
     projectId: "whereswaldo-d9d9f",
@@ -49,20 +55,28 @@ const App: React.FC = () => {
 
   const app = initializeApp(firebaseConfig)
   const firestore = getFirestore(app)
-  const [doneLoading, setDoneLoading] = useState(false)
+
+  const [doneLoading, setDoneLoading] = useState<boolean>(false)
 
   const _getPhotoCollection = async () => {
     const photoSelection = "gameImage1"
     const photoRef = doc(firestore, "photos",`${photoSelection}`)
 
-    const collectionSnapshot = await getDoc(photoRef)
-    const result = collectionSnapshot.data() // Take a snapshot on component mount, then query that data later
-    const setPhotos = {
-      type: "setPhotos",
-      data: result
+    try {
+      const collectionSnapshot = await getDoc(photoRef)
+      const result = collectionSnapshot.data() // Take a snapshot on component mount, then query that data later
+      const setPhotos = {
+        type: "setPhotos",
+        data: result
+      }
+
+      await _getHighScores()
+      dispatch(setPhotos)
+
+    } catch (e: any) {
+      console.log("Error: ", e.message, "Code: ", e.code)
     }
-    _getHighScores()
-    dispatch(setPhotos)
+
   }
 
   const _getHighScores = async () => {
@@ -83,7 +97,7 @@ const App: React.FC = () => {
       scores: head100,
       myHighScore: {
         time: 0,
-        name: "Name"
+        name: ""
       },
       dbRef: firestore
     }

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const GameOverStyles = styled.div`
-  position: absolute;
+  position: fixed;
   top: 100px;
   left: 33%;
   width: 33%;
@@ -53,7 +53,7 @@ export const FormEl = styled.div`
   display: inline-flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  width: 75%;
+  width: 60%;
   border-radius: 2em;
   background-color: #5cccbe;
   padding: 10px 25px;
@@ -61,7 +61,7 @@ export const FormEl = styled.div`
 
   @media only screen
   and (min-device-width: 768px) {
-    width: 95%;
+    width: 80%;
     padding: 10px 0;
   }
 

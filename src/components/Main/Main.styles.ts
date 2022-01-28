@@ -1,20 +1,23 @@
 import styled from "styled-components";
 
 export const Main = styled.div`
-  background-color: goldenrod;
+  background-color: #9a1a1a;
   position: relative;
+  overflow: auto;
   
   h2 {
     position: fixed;
-    top: 60px;
     text-align: center;
     width: 100vw;
     color: #FFF;
+    user-select: none;
   }
   
-  img {
-    width: 100%;
+  .mainImage {
+    width: 3000px;
     object-fit: cover;
+    user-select: none;
+    overflow: auto;
   }
 `
 

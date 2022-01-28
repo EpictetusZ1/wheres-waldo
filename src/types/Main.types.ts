@@ -39,3 +39,7 @@ export interface IHighScoreArr {
     dbRef:  Firestore | any
 }
 
+export interface IToolTipStyledProps {
+    visible: boolean
+}
+

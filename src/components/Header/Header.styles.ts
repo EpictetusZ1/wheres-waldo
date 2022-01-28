@@ -2,11 +2,12 @@ import styled from "styled-components";
 
 export const Header = styled.div`
   height: 70px;
-  width: 100vw;
+  width: 100%;
   background-color: #9a1a1a;
   display: flex;
   justify-content: space-around;
   font-family: Baskerville, sans-serif;
+  
   
   .timerContainer {
     display: flex;
@@ -27,5 +28,10 @@ export const Header = styled.div`
   h1 {
     margin: auto 0;
     font-weight: 500;
+  }
+
+  sup {
+    color: goldenrod;
+    font-size: 0.7em;
   }
 `

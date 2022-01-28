@@ -1,15 +1,22 @@
+// React & Components
 import React, {FormEvent, useContext, useEffect, useState} from 'react';
-import * as S from "./GameOver.styles"
-import {HighScoreContext} from "../../App";
 import HighScores from "../HighScores/HighScores";
+
+// Firebase
 import {doc, setDoc} from "firebase/firestore";
 
-const GameOver = () => {
+// Context and Styles
+import {HighScoreContext} from "../../App";
+import * as S from "./GameOver.styles"
+import {IScore} from "../../types/Main.types";
+
+
+const GameOver: React.FC = () => {
     const {highScore, dispatchHighScore} = useContext(HighScoreContext)
 
     const [name, setName] = useState<string>(highScore.myHighScore.name)
-    const [scoreSubmitted, setScoreSubmitted] = useState(false)
-    const [showHighScore, setShowHighScore] = useState(false)
+    const [scoreSubmitted, setScoreSubmitted] = useState<boolean>(false)
+    const [showHighScore, setShowHighScore] = useState<boolean>(false)
 
     useEffect(() => {
         const setName = {
@@ -19,14 +26,15 @@ const GameOver = () => {
         dispatchHighScore(setName)
     }, [name])
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
         e.preventDefault()
         setScoreSubmitted(true)
-        const addScore = highScore.scores
+
+        const addScore: Array<IScore> = highScore.scores
         addScore.push(highScore.myHighScore)
         const scoresRef = doc(highScore.dbRef, "highScores","allScores")
 
-        setDoc(scoresRef, {scores: addScore}, { merge: true });
+        setDoc(scoresRef, {scores: addScore} )
     }
 
     return (
@@ -40,7 +48,7 @@ const GameOver = () => {
                     <input
                         type="text"
                         value={name}
-                        placeholder={""}
+                        placeholder={"Add your name"}
                         onChange={(e) => setName(e.target.value)}
                     />
                     <br/>

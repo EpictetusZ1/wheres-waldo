@@ -3,7 +3,7 @@ import {HighScoreContext} from "../../App";
 import * as S from"./HighScores.styles"
 import {IScore} from "../../types/Main.types";
 
-const HighScores = () => {
+const HighScores: React.FC = () => {
     const {highScore} = useContext(HighScoreContext)
 
     const sorter = (a: IScore, b: IScore) => {
@@ -17,7 +17,6 @@ const HighScores = () => {
             <div className={"headers"}>
                 <p className="left">Name </p>
                 <p className="right">Time </p>
-                <br/>
                 <hr/>
             </div>
             <ul>
