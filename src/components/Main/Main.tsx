@@ -20,7 +20,7 @@ import Tooltip from "../ToolTip/ToolTip";
 const Main = () => {
     const {photos} = useContext(PhotoContext)
 
-    const [gameOver, setGameOver] = useState(false)
+    const [gameOver, setGameOver] = useState<boolean>(false)
     const [showTarget, setShowTarget] = useState<boolean>(false)
 
     // Show mouse targetBox

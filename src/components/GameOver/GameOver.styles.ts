@@ -53,21 +53,16 @@ export const FormEl = styled.div`
   display: inline-flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  width: 60%;
-  border-radius: 2em;
+  width: 75%;
+  border-radius: 1.2em;
   background-color: #5cccbe;
   padding: 10px 25px;
   font-family: Verdana, sans-serif;
 
-  @media only screen
-  and (min-device-width: 768px) {
-    width: 80%;
-    padding: 10px 0;
-  }
-
   input {
     border: inherit;
     border-radius: 5px;
+    padding: 5px 10px;
   }
 
   button {
@@ -75,5 +70,21 @@ export const FormEl = styled.div`
     border-radius: 5px;
     border: none;
     padding: 5px 10px;
+  }
+
+  @media only screen and (min-device-width: 768px) {
+    padding: 10px 0;
+    input {
+      margin: 5px 0 10px 0;
+    }
+  }
+
+  @media only screen and (max-width: 1200px) {
+    padding: 10px 0;
+    justify-content: center;
+
+    input {
+      margin: 10px 0;
+    }
   }
 `

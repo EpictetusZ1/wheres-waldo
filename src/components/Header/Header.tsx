@@ -11,7 +11,8 @@ const Stopwatch: React.FC = () => {
     useEffect(() => {
         const start: number = window.performance.now()
         const increment: NodeJS.Timer = setInterval(() => {
-            setTime((prevTime) => prevTime + 10)
+
+            setTime((prevTime) => prevTime + 1000)
         }, 1000)
 
         return () => {
@@ -21,9 +22,16 @@ const Stopwatch: React.FC = () => {
         }
     }, [])
 
+    const showTime = () => {
+        const minutes = Math.floor(time / 60000);
+        const seconds = ((time % 60000) / 1000).toFixed(0);
+        // @ts-ignore
+        return minutes + ":" + (seconds < 10 ? "0" : "") + seconds
+    }
+
     return (
         <div className={"timerContainer"}>
-            <p>Current Time: </p>{Math.floor((time / 1000) % 60)}:{("0" + ((time / 10) % 100)).slice(-2)}
+            <p>Current Time: {showTime()}</p>
         </div>
     )
 }

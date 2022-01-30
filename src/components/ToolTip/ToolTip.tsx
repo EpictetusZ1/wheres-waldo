@@ -6,19 +6,18 @@ const Tooltip = () => {
     const [visible, setVisible] = useState(false)
 
     useEffect(() => {
-
     }, [visible])
 
     const Instructions = () => {
         return (
             <S.Instructions visible={visible}>
                 <p className={"rulesHeader"}>How to play</p>
+                <hr/>
                 <ul>
                     <li>Click anywhere to see a list of people to find</li>
                     <li>Find all people then submit your high score!</li>
                     <li>View other top high scores</li>
                 </ul>
-
             </S.Instructions>
         )
     }
@@ -30,8 +29,6 @@ const Tooltip = () => {
         >
             <Instructions />
             <p>?</p>
-
-
         </S.ToolTip>
     )
 }
