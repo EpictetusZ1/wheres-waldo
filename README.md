@@ -72,8 +72,7 @@ The purpose of this Entity Relationship Diagram was to be more thorough in the p
 
 Character Selection
 
-<img src="src/assets/rea
-          dmeAsset1.png" width="700px" alt="character selection">
+<img src="src/assets/readmeAsset1.png" width="700px" alt="character selection">
 
 Submit high score modal
 
