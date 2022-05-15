@@ -69,13 +69,18 @@ The purpose of this Entity Relationship Diagram was to be more thorough in the p
 <sup>[Back to top](#table-of-contents)</sup>
 
 ## Pictures
+
 Character Selection
-<img src="src/assets/readmeAsset1.png" width="700px" alt="character selection">
+
+<img src="src/assets/rea
+          dmeAsset1.png" width="700px" alt="character selection">
 
 Submit high score modal
+
 <img src="src/assets/readmeAsset2.png" width="700px" alt="submit high score">
 
 Game area
+
 <img src="src/assets/readmeAsset3.png" width="700px" alt="game area">
 
 
